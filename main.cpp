@@ -19,6 +19,8 @@
 // Main Runtime Loop
 void runtime_loop() {
 
+    Parser parser;
+
     while (1) {
         // Wait for text input
         std::string input;
@@ -28,17 +30,19 @@ void runtime_loop() {
             break; // Exit if EOF
         }
 
+        // Exit
+        if (input == "exit") {
+            break;
+        }
+
         // Create a new lexer on the stack
         Lexer lexer(input);
-        lexer.root = lexer.parse_expression(INT_MIN); // Start with a binding power lower than any defined
-        
-        std::cout << "Test" << "\n";
-
-        break;
+        Expression* root = parser.parse_expression(lexer, INT_MIN); 
     }
 }
 
 int main () {
+    std::cout << "Type 'exit' to quit\n";
     runtime_loop();
     return 0;
 }
