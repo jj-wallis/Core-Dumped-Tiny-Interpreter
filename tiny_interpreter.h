@@ -1,10 +1,11 @@
 #include <vector>
 #include <string>
 #include <memory>
+#include <unordered_map>
 
 enum Type {
     uninitialsed,
-    integer,
+    digit,
     variable,
     operation, // An operand
     bracket,
@@ -32,7 +33,8 @@ class Expression {
         Expression* lhs = nullptr; // Sub expressions
         Expression* rhs = nullptr;
 
-        bool is_assign();
+        bool is_assignment();
+        float evaluate(std::unordered_map<char,float>& variables, Expression * node);
 };
 
 class Lexer {

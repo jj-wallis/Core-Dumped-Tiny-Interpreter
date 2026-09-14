@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <climits>
+#include <unordered_map>
 #include "tiny_interpreter.h"
 
 /*
@@ -20,6 +21,7 @@
 void runtime_loop() {
 
     Parser parser;
+    std::unordered_map<char,float> variables;
 
     while (1) {
         // Wait for text input
@@ -38,6 +40,15 @@ void runtime_loop() {
         // Create a new lexer on the stack
         Lexer lexer(input);
         Expression* root = parser.parse_expression(lexer, INT_MIN); 
+
+        // Check if the expression was an assignment
+        if (root->is_assignment()) {
+            variables[root->lhs->value] = root->rhs->evaluate(variables, root->rhs);
+        } 
+
+        else {
+            std::cout << root->evaluate(variables, root) << "\n";
+        }
     }
 }
 

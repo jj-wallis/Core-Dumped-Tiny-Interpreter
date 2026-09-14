@@ -31,8 +31,8 @@ std::vector<Token> Lexer::tokeniser(const std::string &input) const {
             token.type = variable;
         }
 
-        if (std::isdigit(c)) {
-            token.type = integer;
+        else if (std::isdigit(c)) {
+            token.type = digit;
         }
 
         // Check for specifics
