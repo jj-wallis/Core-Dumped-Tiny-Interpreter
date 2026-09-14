@@ -40,14 +40,15 @@ void runtime_loop() {
         // Create a new lexer on the stack
         Lexer lexer(input);
         Expression* root = parser.parse_expression(lexer, INT_MIN); 
+        Interpreter interpreter;
 
         // Check if the expression was an assignment
         if (root->is_assignment()) {
-            variables[root->lhs->value] = root->rhs->evaluate(variables, root->rhs);
+            variables[root->lhs->value] = interpreter.evaluate(variables, root->rhs);
         } 
 
         else {
-            std::cout << root->evaluate(variables, root) << "\n";
+            std::cout << interpreter.evaluate(variables, root) << "\n";
         }
     }
 }

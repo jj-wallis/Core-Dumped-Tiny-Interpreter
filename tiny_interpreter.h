@@ -49,7 +49,6 @@ class Lexer {
         std::vector<Token> tokeniser(const std::string &input) const; // Strips user input
 };
 
-//
 class Parser
 {
     public:
@@ -59,4 +58,11 @@ class Parser
 
     private:
         float binding_power_of(char op) const;
+};
+
+class Interpreter {
+    public:
+        Interpreter() { }
+
+        float evaluate(std::unordered_map<char,float>& variables, Expression * node);
 };
